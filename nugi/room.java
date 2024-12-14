@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.*;
 import java.net.*;
 
-class quiz{
+public class quiz{
   question[] questions;
   user[] users;
 }
@@ -21,6 +21,11 @@ class question{
 }
 
 
-static void main(String[] args){
-  System.out.println("Hello World");
+public class room{
+  int id;
+  quiz quiz;
+  static void main(String[] args){
+    System.out.println("Connected to room " + id);
+  } 
 }
+
