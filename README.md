@@ -19,3 +19,5 @@ kerjain sendiri-sendiri dulu, bingung cik cara bagi tugas nya
 4. timeline
 31 desember udah selesai semua orang, disini akan dipilih program yang paling bagus, 
 baru kita adakan "pembagian tugas" berdasarkan source code tersebut.
+
+...
