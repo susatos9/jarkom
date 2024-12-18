@@ -21,7 +21,7 @@ public class ClientHandler implements Runnable{
       this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
       this.clientUsername = bufferedReader.readLine();
-      this.clientHostStatus = (bufferedReader.readLine() == "1");
+      this.clientHostStatus = (bufferedReader.readLine().equals("1"));
       clientHandlers.add(this);
 
       // send this username to host
@@ -33,13 +33,17 @@ public class ClientHandler implements Runnable{
   }
 
   @Override
-  public void run(){  
-    String messageFromClient;
+  public void run(){  // listening for message
     while(socket.isConnected()){
-
       try {
-        messageFromClient = bufferedReader.readLine();
-        sendToHost(messageFromClient);
+        if(!clientHostStatus){ // terima pesan dari bukan host, kirim hanya ke host
+          String messageFromClient = bufferedReader.readLine();
+          sendToHost(messageFromClient);
+        }
+        else { // terima pesan dari host, kirim ke semua peserta
+          String messageFromHost = bufferedReader.readLine();
+          sendToClient(messageFromHost);
+        }
       }
       catch (IOException e){
         closeEverything(socket, bufferedReader, bufferedWriter);
@@ -47,13 +51,26 @@ public class ClientHandler implements Runnable{
       }
     }
   }
-
+  // send message to host
   public void sendToHost(String msg){
     for(ClientHandler clientHandler : clientHandlers){
       try{
-        if(true // clientHandler.clientHostStatus
-        ){
-
+        if(clientHandler.clientHostStatus){
+          clientHandler.bufferedWriter.write(msg);
+          clientHandler.bufferedWriter.newLine();
+          clientHandler.bufferedWriter.flush();
+        }
+      }
+      catch (IOException e){
+        closeEverything(socket, bufferedReader, bufferedWriter);
+      }
+    }
+  }
+  // send message to client
+  public void sendToClient(String msg){
+    for(ClientHandler clientHandler : clientHandlers){
+      try{
+        if(!clientHandler.clientHostStatus){
           clientHandler.bufferedWriter.write(msg);
           clientHandler.bufferedWriter.newLine();
           clientHandler.bufferedWriter.flush();

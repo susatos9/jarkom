@@ -90,7 +90,7 @@ public class Host {
 
   public static void main(String[]args) throws IOException{
     Scanner scanner = new Scanner(System.in);
-    System.out.print("You are the host for this quiz, please input username ");
+    System.out.print("You are the host for this quiz, please input username: ");
     String username = scanner.nextLine();
     
 
