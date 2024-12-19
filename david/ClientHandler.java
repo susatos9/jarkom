@@ -36,7 +36,7 @@ public class ClientHandler implements Runnable{
   public void run(){  // listening for message
     while(socket.isConnected()){
       try {
-        if(!clientHostStatus){ // terima pesan dari bukan host, kirim hanya ke host
+        if(!clientHostStatus){ // terima pesan bukan dari host, kirim hanya ke host
           String messageFromClient = bufferedReader.readLine();
           sendToHost(messageFromClient);
         }
