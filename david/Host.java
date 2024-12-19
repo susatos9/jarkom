@@ -80,12 +80,12 @@ public class Host {
 
   public void sendMessage(){
     try {
-      // send username (host)
+      // send username (host), for client handler
       bufferedWriter.write("Host");
       bufferedWriter.newLine();
       bufferedWriter.flush();
 
-      // send host status
+      // send host status, for client handler
       bufferedWriter.write("1");
       bufferedWriter.newLine();
       bufferedWriter.flush();
@@ -95,25 +95,21 @@ public class Host {
       while(socket.isConnected()){
         String msg = scanner.nextLine();
 
-        if(!quiz_mode && msg.equals("start quiz")){
+        if(!quiz_mode && msg.equals("start quiz")){ // mulai quiz
           quiz_mode = true;
-          bufferedWriter.write(this.username + ": " + "mulai quiz dulu bang");
+          bufferedWriter.write(msg);
           bufferedWriter.newLine();
           bufferedWriter.flush();
 
-          for(Question q : questions){
-            bufferedWriter.write("Pertanyaan: " + q.question);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-
-            for(String opt : q.options){
-              bufferedWriter.write("opsi: " + opt);
-              bufferedWriter.newLine();
-              bufferedWriter.flush();
-            }
+          for(Question q : questions){ // langsung kirim semua pertanyaan
+            bufferedWriter.write(q.wrap());
             bufferedWriter.newLine();
             bufferedWriter.flush();
           }
+
+          bufferedWriter.write("end-questions");
+          bufferedWriter.newLine();
+          bufferedWriter.flush();
         }
         else if(quiz_mode && msg.equals("send leaderboard")){
           send_leaderboard();
@@ -148,6 +144,7 @@ public class Host {
   }
 
   public void read_question(){
+    questions.clear();
     questions.add(new Question("Di dalam sebuah router, HOL (head-of-the-line) blocking disebabkan oleh:"));
     questions.get(0).add_option("Queueing delay dan kehilangan paket di sebuah input buffer");
     questions.get(0).add_option("queueing delay dan kehilangan paket di sebuah output buffer");

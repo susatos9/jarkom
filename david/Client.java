@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client{
@@ -12,6 +13,9 @@ public class Client{
   private BufferedWriter bufferedWriter;
 
   private String username;
+  private boolean quiz_mode = false;
+  private ArrayList<Question> questions = new ArrayList<>();
+  private int questionIdx = 0;
 
   public Client(Socket socket, String username){
     try {
@@ -33,7 +37,24 @@ public class Client{
         while(socket.isConnected()){
           try {
             msg = bufferedReader.readLine();
-            System.out.println(msg);
+
+            if(!quiz_mode && msg.equals("start quiz")){ 
+              quiz_mode = true;
+              System.out.println("quiz has started!");
+
+              // terima semua pertanyaan, jangan ditampilkan terlebih dahulu
+              msg = bufferedReader.readLine();
+              while(!msg.equals("end-questions")){
+                questions.add(Question.unWrap(msg));
+                msg = bufferedReader.readLine();
+              }
+              // tampilkan pertanyaan pertama
+              System.out.println("Pertanyaan pertama");
+              questions.get(questionIdx++).print_question();
+            }
+            else { // pesan biasa
+              System.out.println(msg);
+            }
           }
           catch(IOException e){
             closeEverything(socket, bufferedReader, bufferedWriter);
@@ -62,6 +83,14 @@ public class Client{
         bufferedWriter.write(username + ": " + msg);
         bufferedWriter.newLine();
         bufferedWriter.flush();
+
+        if(quiz_mode){ // dalam quiz mode, pesan berarti jawaban, maka tampilkan soal selanjutnya
+          if(questionIdx == questions.size()){ // jawaban sudah ditampilkan semua
+            questionIdx = 0;
+            quiz_mode = false;
+          }
+          else questions.get(questionIdx++).print_question();
+        }
       }
     }
     catch(IOException e){
