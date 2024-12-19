@@ -49,7 +49,6 @@ public class Client{
                 msg = bufferedReader.readLine();
               }
               // tampilkan pertanyaan pertama
-              System.out.println("Pertanyaan pertama");
               questions.get(questionIdx++).print_question();
             }
             else { // pesan biasa
@@ -85,7 +84,7 @@ public class Client{
         bufferedWriter.flush();
 
         if(quiz_mode){ // dalam quiz mode, pesan berarti jawaban, maka tampilkan soal selanjutnya
-          if(questionIdx == questions.size()){ // jawaban sudah ditampilkan semua
+          if(questionIdx == questions.size()){ // jawaban sudah ditampilkan semua, maka quiz sudah selesai
             questionIdx = 0;
             quiz_mode = false;
           }

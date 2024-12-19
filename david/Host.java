@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -166,11 +167,36 @@ public class Host {
       bufferedWriter.newLine();
       bufferedWriter.flush();
 
+      ArrayList<Object[]> nilai_peserta = new ArrayList<>();
+
       for(Map.Entry<String, String> entry : clientAnswer.entrySet()){
-        bufferedWriter.write(entry.getKey() + ": " + entry.getValue());
+        String usr = entry.getKey(), ans = entry.getValue();
+        
+        int nilai = 0;
+        for(int i = 0; i < Math.min(questions.size(), ans.length()); i++){
+          System.out.println(ans.substring(i, i + 1) + " vs " + questions.get(i).answer);
+          if(ans.substring(i, i + 1).equals(questions.get(i).answer)) nilai++; // karakter ke-i sama dengan kunci jawaban dari soal ke-i
+        }
+
+        bufferedWriter.write(usr + ": " + ans + ", nilai: " + nilai);
+        bufferedWriter.newLine();
+        bufferedWriter.flush();
+        
+        nilai_peserta.add(new Object[]{usr, nilai});
+      }
+
+      // sort nilai peserta berdasarkan nilai paling tinggi
+      Collections.sort(nilai_peserta, (a, b) -> Integer.compare((int)b[1], (int)a[1]));
+      bufferedWriter.write("LEADERBOARD");
+      bufferedWriter.newLine();
+      bufferedWriter.flush();
+
+      for(Object[] pair : nilai_peserta){
+        bufferedWriter.write(pair[0] + ", nilai: " + pair[1]);
         bufferedWriter.newLine();
         bufferedWriter.flush();
       }
+
     }
     catch (IOException e){
       closeEverything(socket, bufferedReader, bufferedWriter);
