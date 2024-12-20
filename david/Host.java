@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -145,20 +147,31 @@ public class Host {
   }
 
   public void read_question(){
-    questions.clear();
-    questions.add(new Question("Di dalam sebuah router, HOL (head-of-the-line) blocking disebabkan oleh:"));
-    questions.get(0).add_option("Queueing delay dan kehilangan paket di sebuah input buffer");
-    questions.get(0).add_option("queueing delay dan kehilangan paket di sebuah output buffer");
-    questions.get(0).add_option("saling menghalangi paket-paket yang berada di input buffer yang berbeda");
-    questions.get(0).add_option("saling menghalangi paket-paket yang berada di output buffer yang berbeda");
-    questions.get(0).set_answer("c");
+    String filePath = "./question.txt";
 
-    questions.add(new Question("Andaikan bit error adalah independed secara statistik ketika sebuah frame ditransmisikan di suatu link; andaikan p adalah probabilitas terjadinya sebuah bit error. Berapakah probabilitas bahwa paling sedikit dua bit error terjadi ketika k buah bit ditransmisikan?"));
-    questions.get(1).add_option("1 - (1 - p)^k");
-    questions.get(1).add_option("1 - (1 - p)^k - kp(1 - p)^(k - 1)");
-    questions.get(1).add_option("1 - (1 - p)^(k+1) - p(1 - p)^k");
-    questions.get(1).add_option("p");
-    questions.get(1).set_answer("b");
+    Question tmp = new Question("");
+    try (Scanner sc = new Scanner(new File(filePath))) {
+      while(sc.hasNextLine()){
+        String now = sc.nextLine();
+        if(now.substring(0, 2).equals("Q:")) { // pertanyaan
+          tmp = new Question(now.substring(2));
+        }
+        else if(now.substring(0, 4).equals("OPT-")){   // opsi
+          tmp.add_option(now.substring(4));
+        }
+        else if(now.substring(0, 4).equals("KEY:")){   // kunci jawaban
+          tmp.set_answer(now.substring(4));
+        }
+        else { // akhir pertanyaan, now == END_QUESTION
+          questions.add(tmp);
+        }
+      }
+    }
+    catch(FileNotFoundException e){
+      e.printStackTrace();
+    }
+
+    System.out.println("All question has been read succesfuly\n");
   }
 
   public void send_leaderboard(){

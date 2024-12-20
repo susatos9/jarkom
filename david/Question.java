@@ -14,6 +14,11 @@ public class Question {
   public void set_answer(String answer){
     this.answer = answer;
   }
+  public void clear(){
+    this.question = "";
+    this.answer = "";
+    this.options.clear();
+  }
   public void print_question(){
     System.out.println(question);
     char opt = 'a';

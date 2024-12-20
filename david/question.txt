@@ -1,19 +1,14 @@
-Di dalam sebuah router, HOL (head-of-the-line) blocking disebabkan oleh:
-a. Queueing delay dan kehilangan paket di sebuah input buffer
-b. queueing delay dan kehilangan paket di sebuah output buffer
-c. saling menghalangi paket-paket yang berada di input buffer yang berbeda
-d. saling menghalangi paket-paket yang berada di output buffer yang berbeda
-
-2. Andaikan bit error adalah independed secara statistik ketika sebuah frame ditransmisikan di suatu link; andaikan p adalah probabilitas terjadinya sebuah bit error. Berapakah probabilitas bahwa paling sedikit dua bit error terjadi ketika k buah bit ditransmisikan?
-a. 1 - (1 - p)^k
-b. 1 - (1 - p)^k - kp(1 - p)^(k - 1)
-c. 1 - (1 - p)^(k+1) - p(1 - p)^k
-d. p
-
-
-
-alur memulai quiz
-1. host memulai quiz dengan menulis "start quiz"
-2. host mengirim sebuah pesan "quiz will be started" ke semua client
-3. host mengirim semua daftar pertanyaan ke semua client
-4. client menampilkan pertanyaan dan menjawabnya satu per satu
+Q:Di dalam sebuah router, HOL (head-of-the-line) blocking disebabkan oleh?
+OPT-Queueing delay dan kehilangan paket di sebuah input buffer
+OPT-queueing delay dan kehilangan paket di sebuah output buffer
+OPT-saling menghalangi paket-paket yang berada di input buffer yang berbeda
+OPT-saling menghalangi paket-paket yang berada di output buffer yang berbeda
+KEY:c
+END_QUESTION
+Q:Andaikan bit error adalah independed secara statistik ketika sebuah frame ditransmisikan di suatu link; andaikan p adalah probabilitas terjadinya sebuah bit error. Berapakah probabilitas bahwa paling sedikit dua bit error terjadi ketika k buah bit ditransmisikan?:
+OPT-1 - (1 - p)^k
+OPT-1 - (1 - p)^k - kp(1 - p)^(k - 1)
+OPT-1 - (1 - p)^(k+1) - p(1 - p)^k
+OPT-p
+KEY:b
+END_QUESTION
