@@ -1,3 +1,5 @@
+#const bisa diganti ke tipe data apapun sesuain sama bahasa yang dipake yah (kalau mau pake soal yang sama hehe)
+
 const questions = [
     {
       id: 1,

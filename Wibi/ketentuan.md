@@ -18,6 +18,7 @@ cara menggunakan :
     untuk mengakses halaman host dapat mengunjungi http://localhost:3000/start-quiz
 
 
-on going (gak pasti ada) : 
-1. styling quiznya (agak mager karna dah cape debug)
-2. deploy (diusahain kalau bisa yah hehe 🥰🥰)
+on going (gak pasti ada) :
+1. soal pake API (paling diusahain biar line di server gak banyak, dan bisa custom soal dengan mudah)
+2. styling quiznya (agak mager karna dah cape debug)
+3. deploy (diusahain kalau bisa yah hehe 🥰🥰)
