@@ -7,7 +7,7 @@ cara menggunakan :
         check apakah sudah ada node atau npm pada devices dengan mengetik : node -v atau npm -v
         versi minimal untuk node yang digunakan adalah v.20.17.0, jika lebih rendah maka dapat memperbarui terlebih dahulu
             jika tidak ada node maka dapat menginstal node terlebih dahulu dan mengonfigurasikannya dengan perangkat.
-                berikut tutorial install node : [text](https://youtu.be/06X51c6WHsQ?si=x-6-JAyvzR5cMdQH)
+                berikut tutorial install node : [install node](https://youtu.be/06X51c6WHsQ?si=x-6-JAyvzR5cMdQH)
 
 3. jalankan npm init -y 
 
