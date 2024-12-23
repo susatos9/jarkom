@@ -1,0 +1,112 @@
+const questions = [
+    {
+      id: 1,
+      question: "Di dalam sebuah router, HOL (Head-of-the-Line) Blocking disebabkan oleh?",
+      options: [
+        "Queueing delay dan kehilangan paket di sebuah input buffer",
+        "Queueing delay dan kehilangan paket di sebuah output buffer",
+        "Saling menghalangi paket-paket yang berada di input buffer yang berbeda",
+        "Saling menghalangi paket-paket yang berada di output buffer yang berbeda"
+      ],
+      answer: "Saling menghalangi paket-paket yang berada di input buffer yang berbeda"
+    },
+    {
+      id: 2,
+      question: "Probabilitas terjadinya paling sedikit dua bit error ketika 𝑘 bit ditransmisikan dengan probabilitas bit error 𝑝 adalah?",
+      options: [
+        "1−(1−𝑝)^𝑘",
+        "1−(1−𝑝)^𝑘 −𝑘𝑝(1−𝑝)^{𝑘−1}",
+        "1−(1−𝑝)^{𝑘+1} −𝑝(1−𝑝)^𝑘",
+        "𝑝"
+      ],
+      answer: "1−(1−𝑝)^𝑘 −𝑘𝑝(1−𝑝)^{𝑘−1}"
+    },
+    {
+      id: 3,
+      question: "Yang mana di antara yang berikut yang bukan layanan link-layer?",
+      options: [
+        "Flow control",
+        "Error correction",
+        "Reliable data transfer",
+        "Congestion control"
+      ],
+      answer: "Congestion control"
+    },
+    {
+      id: 4,
+      question: "Berapa segment dipertukarkan untuk membuat sebuah koneksi TCP?",
+      options: [
+        "1 segment",
+        "2 segment",
+        "3 segment",
+        "Tidak ada"
+      ],
+      answer: "3 segment"
+    },
+    {
+      id: 5,
+      question: "Pernyataan mana tentang error detection/correction berikut yang salah?",
+      options: [
+        "Error detection hanya diimplementasikan di link-layer",
+        "Metode deteksi dengan polynomial menambahkan data redundan di akhir message",
+        "Dengan CRC kita bisa membenarkan bit error yang jumlahnya ganjil",
+        "Parity check dapat digunakan untuk membenarkan satu bit error"
+      ],
+      answer: "Metode deteksi dengan polynomial menambahkan data redundan di akhir message"
+    },
+    {
+      id: 6,
+      question: "Berapa banyak interface yang harus dilewati oleh IP datagram ketika melewati 3 router di antara sumber A dan tujuan B?",
+      options: [
+        "8",
+        "6",
+        "5",
+        "3"
+      ],
+      answer: "8"
+    },
+    {
+      id: 7,
+      question: "Dalam routing antara Autonomous System (AS), isu yang mana yang paling dominan dalam membuat keputusan routing?",
+      options: [
+        "Jarak antara AS secara geografis",
+        "Policy",
+        "Banyaknya AS yang mesti dilewati",
+        "Level congestion yang terjadi dalam AS-nya"
+      ],
+      answer: "Policy"
+    },
+    {
+      id: 8,
+      question: "Berapa persen isi dari IP datagram yang merupakan data aplikasi jika aplikasi membuat paket berisi 60 byte data yang dibungkus dalam segment TCP dan IP datagram?",
+      options: [
+        "60%",
+        "80%",
+        "40%",
+        "20%"
+      ],
+      answer: "60%"
+    },
+    {
+      id: 9,
+      question: "Apakah total interface selalu 2^n dengan n router?",
+      options: [
+        "Iya! Total interface selalu 2^n untuk n router",
+        "Tidak! Total interface selalu 2n untuk setiap n router",
+        "Tidak! Total interface selalu 2n + 2 untuk setiap n router",
+        "Tidak! Total interface selalu n untuk setiap n router"
+      ],
+      answer: "Tidak! Total interface selalu 2n + 2 untuk setiap n router"
+    },
+    {
+      id: 10,
+      question: "Congestion control merupakan layanan dari link?",
+      options: [
+        "Link layer",
+        "Transport layer",
+        "Application layer",
+        "Network layer"
+      ],
+      answer: "Transport layer"
+    }
+  ];

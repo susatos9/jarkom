@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Start Quiz</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #playerList {
+        list-style: none;
+        padding: 0;
+      }
+      #playerList li {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Start Quiz</h1>
+    <h2>Players in Waiting Room:</h2>
+    <ul id="playerList"></ul>
+    <button id="startQuiz" style="margin-top: 20px; padding: 10px 20px">
+      Start Quiz
+    </button>
+
+    <script>
+      const socket = io();
+      const playerList = document.getElementById("playerList");
+      const startQuizButton = document.getElementById("startQuiz");
+
+      // Set this client as the host
+      socket.emit("set_host");
+
+      // Update player list in the waiting room
+      socket.on("update_waiting_room", (players) => {
+        playerList.innerHTML = players.length
+          ? players.map((player) => `<li>${player.name}</li>`).join("")
+          : "No players yet...";
+      });
+
+      // Enable the start quiz button for the host
+      socket.on("host_confirmed", () => {
+        startQuizButton.disabled = false;
+      });
+
+      // Start quiz on button click
+      startQuizButton.addEventListener("click", () => {
+        socket.emit("start_quiz");
+      });
+
+      // Handle quiz started
+      socket.on("quiz_started", () => {
+        alert("The quiz has started!");
+      });
+    </script>
+  </body>
+</html>

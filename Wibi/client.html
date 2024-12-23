@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Game</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #leaderboard ul,
+      #waitingRoom ul {
+        list-style: none;
+        padding: 0;
+      }
+      #waitingRoom ul {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+      }
+
+      #leaderboard ul {
+        list-style: decimal;
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Quiz Game</h1>
+
+    <section id="welcomeSection">
+      <h2>Selamat Datang</h2>
+      <input id="playerName" type="text" placeholder="Masukkan nama Anda" />
+      <button id="joinQuiz">Join Quiz</button>
+    </section>
+
+    <section id="leaderboardSection" style="display: none">
+      <h2>Leaderboard</h2>
+      <ul id="leaderboardList">
+        Tidak ada leaderboard.
+      </ul>
+    </section>
+
+    <section id="waitingRoom" style="display: none">
+      <h2>Waiting Room</h2>
+      <ul id="waitingRoomList"></ul>
+    </section>
+
+    <section id="quizSection" style="display: none">
+      <div id="timer" style="font-size: 1.5rem; margin-bottom: 1rem">
+        Waktu: 2:00
+      </div>
+      <div id="question" style="margin-bottom: 2rem; font-size: 2rem"></div>
+      <div
+        id="options"
+        style="
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1rem;
+          font-size: 2rem;
+        "
+      ></div>
+      <button id="submitQuiz">Submit Quiz</button>
+    </section>
+
+    <script>
+      const socket = io();
+      const playerNameInput = document.getElementById("playerName");
+      const joinQuizButton = document.getElementById("joinQuiz");
+      const leaderboardList = document.getElementById("leaderboardList");
+      const waitingRoomList = document.getElementById("waitingRoomList");
+      const quizSection = document.getElementById("quizSection");
+      const welcomeSection = document.getElementById("welcomeSection");
+      const leaderboardSection = document.getElementById("leaderboardSection");
+      const waitingRoom = document.getElementById("waitingRoom");
+      const questionDiv = document.getElementById("question");
+      const optionsDiv = document.getElementById("options");
+      const submitQuizButton = document.getElementById("submitQuiz");
+
+      let currentQuestionIndex = 0;
+      let answers = [];
+      let startTime;
+      let quizInterval = null;
+
+      joinQuizButton.addEventListener("click", () => {
+        const playerName = playerNameInput.value;
+        if (playerName) {
+          socket.emit("join_game", playerName);
+          welcomeSection.style.display = "none";
+          leaderboardSection.style.display = "none";
+          waitingRoom.style.display = "block";
+        }
+      });
+
+      socket.on("update_waiting_room", (players) => {
+        waitingRoomList.innerHTML = "";
+        players.forEach((p) => {
+          const li = document.createElement("li");
+          li.textContent = p.name;
+          waitingRoomList.appendChild(li);
+        });
+      });
+
+      // Start timer
+      const startTimer = (duration) => {
+        const timerElement = document.getElementById("timer");
+        let remainingTime = duration;
+
+        quizInterval = setInterval(() => {
+          const minutes = Math.floor(remainingTime / 60);
+          const seconds = remainingTime % 60;
+          timerElement.textContent = `Waktu: ${minutes}:${
+            seconds < 10 ? "0" : ""
+          }${seconds}`;
+          remainingTime--;
+
+          if (remainingTime < 0) {
+            clearInterval(quizInterval);
+            alert("Waktu habis! Mengirim jawaban...");
+            submitQuiz(); // Kirim jawaban otomatis
+          }
+        }, 1000);
+      };
+
+      socket.on("quiz_started", (questions) => {
+        startTime = Date.now(); // Mulai waktu
+        startTimer(120); // 2 menit
+        waitingRoom.style.display = "none";
+        quizSection.style.display = "block";
+        loadQuestion(questions);
+      });
+
+      const loadQuestion = (questions) => {
+        if (currentQuestionIndex < questions.length) {
+          const question = questions[currentQuestionIndex];
+          questionDiv.textContent = question.question;
+          optionsDiv.innerHTML = "";
+          question.options.forEach((opt) => {
+            const btn = document.createElement("button");
+            btn.textContent = opt;
+            btn.onclick = () => {
+              answers.push(opt);
+              currentQuestionIndex++;
+              loadQuestion(questions);
+            };
+            optionsDiv.appendChild(btn);
+          });
+        } else {
+          questionDiv.textContent = "Semua jawaban sudah terjawab!";
+          optionsDiv.innerHTML = "";
+        }
+      };
+
+      submitQuizButton.addEventListener("click", submitQuiz);
+
+      submitQuizButton.addEventListener("click", () => {
+        const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+        console.log("Time taken:", timeTaken); // Debugging untuk memeriksa waktu (bisa dihapus nanti)
+        socket.emit("submit_answers", { answers, time: timeTaken });
+        clearInterval(quizInterval);
+        quizSection.style.display = "none";
+        leaderboardSection.style.display = "block";
+      });
+
+      socket.on("update_leaderboard", (leaderboard) => {
+        leaderboardList.innerHTML = "";
+        leaderboard.forEach((player, index) => {
+          const listItem = document.createElement("li");
+          const formattedTime = player.formattedTime || "N/A"; // Fallback waktu
+          listItem.textContent = `${index + 1}. ${player.name} - Skor: ${
+            player.score
+          }, Waktu: ${player.formattedTime}`;
+          leaderboardList.appendChild(listItem);
+        });
+      });
+    </script>
+  </body>
+</html>
