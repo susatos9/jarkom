@@ -3,6 +3,7 @@ import socket
 import threading
 import sys
 from question import Question
+import time
 '''
 (SERVER, HEADER, PORT, FORMAT, DISCONNECT_MESSAGE)
 (socket.gethostbyname(socket.gethostname()), 64, 5050, "utf-8", "!DISCONNECT")
@@ -89,6 +90,13 @@ class Host:
           self.questions.append(q)
 
     print("all question has been read successfully")
+  
+  def quiz_timer(self, second):
+    print("timer started: " + str(second) + " seconds...")
+    time.sleep(second)
+    print("timer stopped")
+    self.send_message("timer-ended")
+    self.quiz_mode = False
 
   def send_leaderboard(self):
     # for name in self.answers:
@@ -119,6 +127,9 @@ keep_listening_thread = threading.Thread(target=host.keep_listening_message)
 keep_listening_thread.daemon = True
 keep_listening_thread.start()
 
+# thread for timer
+quiz_timer_thread = threading.Thread(target=host.quiz_timer, args=(15,))
+
 # keep reading input from user
 while host.connected:
   new_msg = input()
@@ -131,6 +142,9 @@ while host.connected:
     for q in host.questions:
       host.send_message(q.wrap())
     host.send_message("all-questions-sent")
+    # mulai juga timer nya
+    quiz_timer_thread.start()
+    quiz_timer_thread.join()
   elif new_msg == "send leaderboard":
     host.send_leaderboard()
   else :

@@ -76,6 +76,10 @@ class Client:
         self.questions[self.questionIndex].print_question()        # tampilkan pertanyaan pertama
         self.questionIndex += 1
 
+      elif msg == "timer-ended":
+        print("waktu habis, anda tidak dapat mengirim jawaban lagi")
+        self.quiz_mode = False
+
       elif msg == "send-leaderboard":
         # terima leaderboard
         while True:
