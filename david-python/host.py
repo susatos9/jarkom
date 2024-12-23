@@ -75,21 +75,18 @@ class Host:
     host.send_message(f"set-host:1") # set host status
   
   def read_question(self):
-    q = Question("Di dalam sebuah router, HOL (head-of-the-line) blocking disebabkan oleh?")
-    q.add_option("Queueing delay dan kehilangan paket di sebuah input buffer")
-    q.add_option("queueing delay dan kehilangan paket di sebuah output buffer")
-    q.add_option("saling menghalangi paket-paket yang berada di input buffer yang berbeda")
-    q.add_option("saling menghalangi paket-paket yang berada di output buffer yang berbeda")
-    q.answer = 'c'
-    self.questions.append(q)
-
-    q = Question("Andaikan bit error adalah independed secara statistik ketika sebuah frame ditransmisikan di suatu link; andaikan p adalah probabilitas terjadinya sebuah bit error. Berapakah probabilitas bahwa paling sedikit dua bit error terjadi ketika k buah bit ditransmisikan?")
-    q.add_option("1 - (1 - p)^k")
-    q.add_option("1 - (1 - p)^k - kp(1 - p)^(k - 1)")
-    q.add_option("(1 - p)^(k+1) - p(1 - p)^k")
-    q.add_option("p")
-    q.answer = "b"
-    self.questions.append(q)
+    with open("question.txt", "r") as file:
+      q = Question("")
+      for line in file:
+        now = line.strip()
+        if now[0] == 'Q': # question part
+          q = Question(now[2:])
+        elif now[0:3] == 'OPT': # option part
+          q.add_option(now[4:])
+        elif now[0:3] == 'KEY':
+          q.answer = now[4]
+        else : # end question
+          self.questions.append(q)
 
     print("all question has been read successfully")
 
