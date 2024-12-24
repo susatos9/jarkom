@@ -17,3 +17,8 @@ cara menggunakan
 6. apabila timer telah selesai, client masih dapat mengirim pesan, namun pesan tersebut tidak akan dihitung sebagai jawaban quiz.
 7. setelah timer selesai, maka quiz selesai. Untuk mengirimkan leaderboard ke masing-masing client, tuliskan "send leaderboard" di terminal host.
 8. apabila telah selesai memakai program dan ingin keluar, dapat menuliskan "exit" baik di terminal host maupun client.
+
+
+Rencana:
+1. bakal kutambahin lagi soal-soal quiznya (lagi males bang, ga bisa copy paste)
+2. kutambahin cara biar siapa aja bisa ngakses quiznya (ga terbatasi di 1 laptop aja)
