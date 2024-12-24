@@ -13,7 +13,7 @@ cara menggunakan :
 
 4. jalankan npm install express socket.io
 
-5. lalu jalankan npm server.js -> untuk menjalankan server, jika sudah maka
+5. lalu jalankan node server.js -> untuk menjalankan server, jika sudah maka
     untuk mengakses halaman client dapat mengunjungi http://localhost:3000 (dapat diakses diberbagai browser, asalkan masih satu devices dengan server)
     untuk mengakses halaman host dapat mengunjungi http://localhost:3000/start-quiz
 
