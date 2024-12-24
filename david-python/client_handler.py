@@ -87,7 +87,7 @@ class Client_handler:
             if new_msg == "all-questions-sent":
               break
         else :# pesan biasa
-          if new_msg == "timer-ended": self.quiz_mode = False
+          if new_msg == "timer-ended": self.quiz_mode = False # timer selesai, quiz selesai
           self.send_message_to_clients(new_msg)
 
       else : # pesan dari client

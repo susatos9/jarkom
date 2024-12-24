@@ -87,7 +87,6 @@ class Client:
           msg = self.get_message(new_msg)
           if msg == "leaderboard-sent": break
           print(msg)
-
       else : # pesan biasa  
         print(new_msg)
 

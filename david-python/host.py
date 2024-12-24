@@ -96,6 +96,8 @@ class Host:
     time.sleep(second)
     print("timer stopped")
     self.send_message("timer-ended")
+
+    # means, quiz also ended
     self.quiz_mode = False
 
   def send_leaderboard(self):
@@ -127,9 +129,6 @@ keep_listening_thread = threading.Thread(target=host.keep_listening_message)
 keep_listening_thread.daemon = True
 keep_listening_thread.start()
 
-# thread for timer
-quiz_timer_thread = threading.Thread(target=host.quiz_timer, args=(15,))
-
 # keep reading input from user
 while host.connected:
   new_msg = input()
@@ -137,17 +136,22 @@ while host.connected:
     host.connected = False
     host.send_message(host.DISCONNECT_MESSAGE)
   elif new_msg == "start quiz" and not host.quiz_mode:
+    host.answers.clear()
     host.send_message(new_msg)
     host.quiz_mode = True
     for q in host.questions:
       host.send_message(q.wrap())
     host.send_message("all-questions-sent")
+
     # mulai juga timer nya
+    # thread for timer
+    quiz_timer_thread = threading.Thread(target=host.quiz_timer, args=(15,))
     quiz_timer_thread.start()
     quiz_timer_thread.join()
+
   elif new_msg == "send leaderboard":
     host.send_leaderboard()
-  else :
+  else : # pesan biasa
     host.send_message(new_msg)
 
 host.send_message(host.DISCONNECT_MESSAGE)
