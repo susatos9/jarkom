@@ -1,0 +1,19 @@
+
+1. Pastikan udah ada python ter-install. klo belum, install dulu.
+2. buka terminal dan masuk ke folder /david-python
+3. program ini ada 3 runnable yang dipakai -> server.py, host.py, dan client.py
+
+cara menggunakan
+
+1. buka 3 terminal (masih di folder /david-python), satu untuk server, satu untuk host, dan sisanya untuk peserta (client) quiz
+2. run masing-masing program di 3 terminal tadi dengan urutan berikut:
+    a. server.py, run: di terminal pertama, tulis: "python server.py" atau "python3 server.py"
+    b. host.py, run: di terminal kedua, tulis: "python host.py" atau "python3 host.py"
+    c. client.py, run: di terminal ketiga, tulis: "python client.py" atau "python3 client.py"
+
+3. pada awalnya akan ada waiting room. host dapat menerima dan mengirim pesan ke client, namun client hanya dapat mengirim pesan ke host.
+4. di terminal host, untuk memulai quiz, dapat menuliskan "start quiz". Disini, timer akan dimulai, 15 detik (sengaja buat demo ajah).
+5. setelah quiz dimulai, peserta dapat mengirimkan jawaban dengan menuliskan a, b, c, d, ... sesuai opsi yang tersedia lalu menekan enter.
+6. apabila timer telah selesai, client masih dapat mengirim pesan, namun pesan tersebut tidak akan dihitung sebagai jawaban quiz.
+7. setelah timer selesai, maka quiz selesai. Untuk mengirimkan leaderboard ke masing-masing client, tuliskan "send leaderboard" di terminal host.
+8. apabila telah selesai memakai program dan ingin keluar, dapat menuliskan "exit" baik di terminal host maupun client.
