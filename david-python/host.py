@@ -139,7 +139,7 @@ while host.connected:
     host.answers.clear()
     host.send_message(new_msg)
     host.quiz_mode = True
-    for q in host.questions:
+    for q in host.questions:   # kirim semua pertanyaan
       host.send_message(q.wrap())
     host.send_message("all-questions-sent")
 

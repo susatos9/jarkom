@@ -62,31 +62,33 @@ class Client:
       new_msg = self.receive_message()
       msg = self.get_message(new_msg)
       if msg == "start quiz" and not self.quiz_mode: # jika host memulai quiz
-        print("host akan memulai quiz")
-
-        while True:
+        print("host telah memulai quiz!\n")
+        self.questions.clear()
+        while True:            # terima semua pertanyaan
           new_msg = self.receive_message()
           msg = self.get_message(new_msg)
           if msg == "all-questions-sent":
             break
           self.questions.append(Question.unwrap(msg))
-          # Question.unwrap(msg).print_question()
 
         self.quiz_mode = True 
+        self.questionIndex = 0
         self.questions[self.questionIndex].print_question()        # tampilkan pertanyaan pertama
         self.questionIndex += 1
 
       elif msg == "timer-ended":
-        print("waktu habis, anda tidak dapat mengirim jawaban lagi")
+        print("waktu habis, anda tidak dapat mengirim jawaban lagi\n")
         self.quiz_mode = False
 
       elif msg == "send-leaderboard":
+        print("Berikut adalah leaderboard dari quiz:")
         # terima leaderboard
         while True:
           new_msg = self.receive_message()
           msg = self.get_message(new_msg)
           if msg == "leaderboard-sent": break
           print(msg)
+        print("\n")
       else : # pesan biasa  
         print(new_msg)
 
@@ -113,11 +115,9 @@ while client.connected:
     client.send_message(new_msg)
     if client.quiz_mode: # pesan biasa adalah jawaban utk quiz
       # tampilkan pertanyaan berikutnya
-      client.questions[client.questionIndex].print_question()
-      client.questionIndex += 1
-      if client.questionIndex == (len(client.questions)):
-        client.questionIndex = 0
-        client.quiz_mode = False
+      if client.questionIndex < (len(client.questions)):
+        client.questions[client.questionIndex].print_question()
+        client.questionIndex += 1
 
 client.send_message(client.DISCONNECT_MESSAGE)
 client.conn.close()

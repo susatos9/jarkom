@@ -8,12 +8,12 @@ class Question:
     self.options.append(opt)
   
   def print_question(self):
-    print("Question: " + self.question)
+    print("\nQuestion: " + self.question)
     opsi = 97
     for o in self.options:
       print(chr(opsi) + ". " + o)
       opsi += 1 
-    print("")
+    print("\nJawab: ", end = "")
 
   def wrap(self):
     res = self.question
