@@ -42,9 +42,9 @@ public class QuizServer {
             private int score = 0 ;
             private boolean isHost = false;
             private static final List<String[]> questions = Arrays.asList(
-                new String[]{"What is the capital of France?", "Paris"},
-                new String[]{"2 + 2 = ?", "4"},
-                new String[]{"Who wrote 'Hamlet'?", "Shakespeare"}
+                new String[]{"Siapa nama dosen yang suka bahas trading?", "agus sihabuddin"},
+                new String[]{"siapa nama kepala prodi ilmu komputer UGM?", "azhari"},
+                new String[]{"indonesia adalah negara....", "hukum"}
             );
     
             public ClientHandler(Socket socket) {
