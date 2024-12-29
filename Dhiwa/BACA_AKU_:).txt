@@ -1,0 +1,6 @@
+1. pada terminal pertama, jalankan perintah ' javac QuizSever.java '. kemudian, lanjutkan dengan ' java QuizSever ' 
+2. pada terminal kedua, jalankan perintah ' javac QuizClient.java '. kemudian, lanjutkan dengan ' java QuizClient '. jika nama yang kita masukkan adalah ' host ' maka client ini menjadi host. jika tidak maka akan menjadi player biasa 
+3. langkah kedua bisa diulang berapa kali terserah kalian dah wkwk  
+4. di terminal host kita akan ditanya mau mulai quiz nya atau nggak. kalau kita masukkan ' start ' maka quiz akan dimulai dengan diikuti timer selama 20 detik (bisa diubah) dan host tidak ditampilkan pertanyaan quiz
+5. di terminal player (client selain host) akan ditampilkan pertanyaan. 
+6. jika waktu sudah habis maka semua skor pemain akan ditampilkan pada terminal server   
