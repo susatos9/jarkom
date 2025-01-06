@@ -4,8 +4,8 @@ from client_handler import Client_handler
 
 HEADER = 64
 PORT = 5050
-# SERVER = "192.168.2.244"
-SERVER = socket.gethostbyname(socket.gethostname())
+SERVER = "192.168.92.244"
+# SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!DISCONNECT"

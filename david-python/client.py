@@ -97,7 +97,7 @@ class Client:
     client.send_message(f"set-host:0") # set host status
 
 username = input("enter username: ")
-client = Client(username, socket.gethostbyname(socket.gethostname()), 64, 5050, "utf-8", "!DISCONNECT")
+client = Client(username, "192.168.92.244", 64, 5050, "utf-8", "!DISCONNECT")
 client.handshake()
 
 # keep listening for message
@@ -111,6 +111,7 @@ while client.connected:
   if new_msg == "exit":
     client.connected = False
     client.send_message(client.DISCONNECT_MESSAGE)
+    
   else : # pesan biasa
     client.send_message(new_msg)
     if client.quiz_mode: # pesan biasa adalah jawaban utk quiz

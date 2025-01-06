@@ -38,12 +38,12 @@ class Client_handler:
   def send_message_to_clients(self, msg):
     for client in Client_handler.clients:
       if not client.is_a_host:
-        client.send_message(f"[HOST]{self.username}@{self.addr}: {msg}")
+        client.send_message(f"[HOST]{self.username}: {msg}")
   
   def send_message_to_host(self, msg):
     for client in Client_handler.clients:
       if client.is_a_host:
-        client.send_message(f"{self.username}@{self.addr}: {msg}")
+        client.send_message(f"{self.username}: {msg}")
 
   def handle_client(self):
     print(f"new connection: {self.addr} has connected")
@@ -71,9 +71,11 @@ class Client_handler:
         for client in Client_handler.clients:
           if(client.username != self.username):
             if(self.is_a_host):
-              client.send_message(f"[HOST]{self.username}@{self.addr}: {new_msg}")
+              # client.send_message(f"[HOST]{self.username}@{self.addr}: {new_msg}")
+              client.send_message(f"[HOST]{self.username}: {new_msg}")
             else :
-              client.send_message(f"{self.username}@{self.addr}: {new_msg}")
+              # client.send_message(f"{self.username}@{self.addr}: {new_msg}")
+              client.send_message(f"{self.username}: {new_msg}")
         continue
 
       if(self.is_a_host): # pesan dari host
@@ -81,7 +83,7 @@ class Client_handler:
           self.quiz_mode = True
           self.send_message_to_clients(new_msg) # start quiz
 
-          while True:
+          while True: # terima semua pertanyaan
             new_msg = self.receive_message()
             self.send_message_to_clients(new_msg)
             if new_msg == "all-questions-sent":
