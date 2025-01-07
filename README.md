@@ -14,6 +14,7 @@ g. host menerima semua jawaban client, menilai, dan mengirim leaderboard ke clie
 h. host menutup server.
 
 3. pembagian tugas
+   
 Kelompok a (client.py, client_handler.py, server.py):
 1. David
 2. Arjun
