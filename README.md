@@ -13,11 +13,13 @@ f. setelah waktu quiz habis, semua jawaban client yg disimpan dikirim ke host
 g. host menerima semua jawaban client, menilai, dan mengirim leaderboard ke client
 h. host menutup server.
 
-3. alur pengerjaan
-kerjain sendiri-sendiri dulu, bingung cik cara bagi tugas nya
+3. pembagian tugas
 
-4. timeline
-31 desember udah selesai semua orang, disini akan dipilih program yang paling bagus, 
-baru kita adakan "pembagian tugas" berdasarkan source code tersebut.
-
-....
+Kelompok a (client.py, client_handler.py, server.py):
+1. David
+2. Arjun
+3. Dhiwa
+Kelompok b (host.py, question.py, question.txt):
+1. wibi
+2. nugi
+3. dzaky
